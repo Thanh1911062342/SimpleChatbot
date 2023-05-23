@@ -1,0 +1,5 @@
+- Tạo mã 10 ký tự và lưu vào database
+- Gửi mã đã tạo
+- Kiểm tra email và mã có khớp hay không ?
+- Kiểm tra mã đã hết hạn hay chưa ?
+- 1 ip chỉ chấp nhận 1 email

@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="MainWrapper">
+      <div class="Top">
+        <div id="rainbowText">Chat Bot By ThanhPham</div>
+        <div id="dateNow">{{dateNow}}</div>
+      </div>
+      <div class="Mid">
+       <div class="Chatbox">
+         <div class="ChatboxHeader">
+           <div class="ChatboxTilte">
+             <i class="fas fa-comment-alt"></i> SimpleChat
+           </div>
+           <div class="ChatboxOptions">
+             <span><i class="fas fa-cog"></i></span>
+           </div>
+         </div>
+         <div class="ChatboxMain" #ChatboxMain>
+           <div class="Message" id="leftMessage">
+             <div class="MessageImage" style="background-image: url()"></div>
+             <div class="MessageBubble">
+               <div class="MessageInfo">
+                 <div class="MessageInfoName">Thanh</div>
+                 <div class="MessageInfoTime"></div>
+               </div>
+               <div class="MessageText">
+                 Hi, welcome to SimpleChat! Go ahead and send me a message.
+               </div>
+             </div>
+           </div>
+         </div>
+         <form class="ChatboxInputArea">
+           <input #ChatboxInput type="text" class="ChatboxInput" placeholder="Enter your message...">
+           <button type="button" class="ChatboxSendButton" (click)="onSubmit()">Send</button>
+         </form>
+       </div>
+      </div>
+    </div>
+  </div>

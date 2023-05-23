@@ -1,0 +1,36 @@
+﻿using SimpleChatBot.Databases.Dtos;
+
+namespace SimpleChatBot.Business.Boundaries.Chatbots
+{
+    public interface ISendMessageInteractor
+    {
+        public class Request
+        {
+            public string Jwt { get; set; }
+            public string Message { get; set; }
+
+            public Request(string jwt, string message)
+            {
+                Jwt = jwt;
+                Message = message;
+            }
+        }
+
+        public class Response
+        {
+            public string Message { get; set;}
+            public bool IsJWTValid { get; set; }
+
+            public NotificationDto Notification { get; set; }
+
+            public Response(string message, bool isJWTValid, NotificationDto notification)
+            {
+                Message = message;
+                IsJWTValid = isJWTValid;
+                Notification = notification;
+            }
+        }
+
+        public Task<Response> SendMessage(Request request);
+    }
+}

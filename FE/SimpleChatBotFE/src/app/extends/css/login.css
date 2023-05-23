@@ -1,0 +1,88 @@
+/*Login*/
+*, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.LoginWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.LoginForm{
+    margin: 0 auto;
+    padding: 30px;
+    max-width: 300px;
+    border: 1.2px solid black;
+}
+
+.LoginForm > h2{
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 32px;
+}
+
+.FormGroup{
+    display: block;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.FormGroup input[type="email"],
+.FormGroup input[type="password"]{
+    padding: 5px;
+    width: 100%;
+    border: 1.2px solid black;
+}
+
+.FormGroup .KeyInput{
+    display: flex;
+    align-items: center;
+}
+
+.FormGroup .KeyInput input[type="password"]
+{
+    flex-grow: 1;
+    margin-right: 10px;
+} 
+
+.FormGroup .KeyInput #keyButton{
+    width: 60px;
+    height: 50px; 
+    
+}
+
+.FormGroup > .KeyInput > .Active{
+    color: white;
+    background-color: cornflowerblue;
+    cursor: pointer;
+}
+
+.FormGroup > .KeyInput > .DisActive{
+    color: black;
+    background-color: gray;
+    cursor: alias;
+}
+
+.FormGroup .Validation{
+    color: #e74c3c;
+}
+
+#loginButton{
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5px;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+#loginButton:hover{
+    background-color: #0069d9;
+    cursor: pointer;
+}
+

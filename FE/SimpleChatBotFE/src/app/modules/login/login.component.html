@@ -1,0 +1,21 @@
+<div class="LoginWrapper">
+    <form class="LoginForm" [formGroup]="loginForm" (submit)="onSubmit()">
+        <h2>ĐĂNG NHẬP</h2>
+        <div class="FormGroup">
+            <label for="emailInput">Email:</label>
+            <input formControlName="email" [(ngModel)]="emailInput" (input)="emailInputChecker()"  type="email" id="emailInput" name="emailInput" required />
+            <small class="Validation" *ngIf="emailError">{{emailError}}</small>
+        </div>
+        <div class="FormGroup">
+            <label for="keyInput">Xác nhận email:</label>
+            <div class="KeyInput">
+                <input formControlName="key" [(ngModel)]="keyInput" (input)="keyInputChecker()" type="password" id="keyInput" name="keyInput" required />
+                <button #getKeyButton class="Active" type="button" id="keyButton" (click)="getKey()">
+                    Gửi mã
+                </button>
+            </div>
+            <small class="Validation" *ngIf="keyError">{{keyError}}</small>
+        </div>
+        <button type="submit" id="loginButton">Đăng Nhập</button>
+    </form>
+</div>
