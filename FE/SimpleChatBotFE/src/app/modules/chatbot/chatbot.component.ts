@@ -1,6 +1,7 @@
 import { ElementRef } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChatBotService } from 'src/app/business/services/chatbotService';
 
 @Component({
   selector: 'app-chatbot',
@@ -28,7 +29,7 @@ export class ChatbotComponent implements OnInit {
   BOT_NAME = "BOT";
   PERSON_NAME = "Thanh";
 
-  constructor() { }
+  constructor(private chatbotService: ChatBotService) { }
 
   ngOnInit() {
   }
@@ -56,6 +57,10 @@ export class ChatbotComponent implements OnInit {
     {
       return;
     }
+
+    this.chatbotService.sendMessage(msgText).subscribe((response) => {
+      console.log(response);
+    });
 
     this.appendMessage(this.PERSON_NAME, this.PERSON_IMG, "right", msgText);
 

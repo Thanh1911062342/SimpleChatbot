@@ -81,5 +81,15 @@ namespace SimpleChatBot.Databases.Repositories
                          orderby a.Id ascending
                          select a).ToListAsync();
         }
+
+        public async Task<string> GetKeyByEmail(string email)
+        {
+            return (await (from a in _chatbotContext.Accounts
+                           where
+                           (
+                             a.Email == email
+                           )
+                           select a).FirstOrDefaultAsync())?.KeyActive ?? "";
+        }
     }
 }

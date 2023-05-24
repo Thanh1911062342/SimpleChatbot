@@ -39,8 +39,7 @@ namespace SimpleChatBot.Business.Interactors.Accounts
             {
                 { "email", request.LoginDto.Email },
                 { "role", "user" },
-                {"exp", DateTime.Now.Date.ToString()},
-                {"aud", request.LoginDto.Email }
+                {"exp", DateTime.Now.Date.ToString()}
             };
             var jwt = await _encodeService.GenerateJWT(payloadItems, request.LoginDto.Key);
 

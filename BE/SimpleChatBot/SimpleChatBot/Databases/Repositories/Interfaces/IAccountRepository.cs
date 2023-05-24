@@ -11,5 +11,7 @@ namespace SimpleChatBot.Databases.Repositories.Interfaces
         public Task<bool> Update(Account account);
 
         public Task<IEnumerable<Account>> GetAllAccounts();
+
+        public Task<string> GetKeyByEmail(string email);
     }
 }
