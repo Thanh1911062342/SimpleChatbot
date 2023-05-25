@@ -20,39 +20,24 @@ namespace SimpleChatBot.Business.Interactors.Chatbots
         {
             if (string.IsNullOrEmpty(request.Jwt))
             {
-                NotificationDto notification = new NotificationDto()
-                {
-                    Message = "Không tìm thấy tài khoản, vui lòng đăng nhập lại",
-                    Status = false
-                };
 
-                return new ISendMessageInteractor.Response("", false, notification);
+                return new ISendMessageInteractor.Response("Vui lòng đăng nhập lại", false, false);
             }
 
             if (!(await _encodeService.ValidateJwt(request.Jwt)))
             {
-                NotificationDto notification = new NotificationDto()
-                {
-                    Message = "Tài khoản hết hiệu lực, vui lòng đăng nhập lại",
-                    Status = false
-                };
 
-                return new ISendMessageInteractor.Response("", false, notification);
+                return new ISendMessageInteractor.Response("Vui lòng đăng nhập lại", false, false);
             }
 
             var responseMessage = await _chatBotService.GetMessage(request.Message);
             if (responseMessage == null)
             {
-                NotificationDto notification = new NotificationDto()
-                {
-                    Message = "Bị lỗi vui lòng thử lại sau",
-                    Status = false
-                };
 
-                return new ISendMessageInteractor.Response("", true, notification);
+                return new ISendMessageInteractor.Response("Vui lòng đăng nhập lại", true, false);
             }
 
-            return new ISendMessageInteractor.Response(responseMessage, true, new NotificationDto() { });
+            return new ISendMessageInteractor.Response(responseMessage, true, true);
         }
     }
 }

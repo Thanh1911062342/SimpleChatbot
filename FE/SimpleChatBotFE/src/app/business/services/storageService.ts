@@ -29,4 +29,9 @@ export class StorageService {
 
         return '';
     }
+
+    removeFromStorage(item: string){
+        localStorage.removeItem(item);
+        this.router.navigate(['/login']);
+    }
 }

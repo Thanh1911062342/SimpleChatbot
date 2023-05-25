@@ -2,6 +2,7 @@ import { ElementRef } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChatBotService } from 'src/app/business/services/chatbotService';
+import { StorageService } from 'src/app/business/services/storageService';
 
 @Component({
   selector: 'app-chatbot',
@@ -15,6 +16,8 @@ export class ChatbotComponent implements OnInit {
   
   dateNow: string = "";
 
+  chatboxForm!: FormGroup;
+
   BOT_MSGS = [
     "Hi, how are you?",
     "Ohh... I can't understand what you trying to say. Sorry!",
@@ -27,11 +30,19 @@ export class ChatbotComponent implements OnInit {
   BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
   PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
   BOT_NAME = "BOT";
-  PERSON_NAME = "Thanh";
+  PERSON_NAME = "Me";
 
-  constructor(private chatbotService: ChatBotService) { }
+  isButtonDisabled: boolean = false;
+
+  constructor(private chatbotService: ChatBotService,
+              private storageService: StorageService) { }
 
   ngOnInit() {
+    this.chatboxForm = new FormGroup({
+      chatbox: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+    });
   }
 
   ngAfterViewInit() {
@@ -44,27 +55,33 @@ export class ChatbotComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.msgInput == null)
-    {
-      return;
+    if (this.chatboxForm.valid && this.isButtonDisabled == false) {
+
+      this.isButtonDisabled = true;
+
+      let msgText: string = this.chatboxForm.get('chatbox')?.value;
+
+      this.chatboxForm.reset();
+
+      this.appendMessage(this.PERSON_NAME, this.PERSON_IMG, "right", msgText);
+
+      this.chatbotService.sendMessage(msgText).subscribe((response) => {
+        if (response.body.isJWTValid == false) {
+          alert(response.body.message);
+          this.storageService.removeFromStorage('LoggedIn');
+
+          return;
+        }
+
+        if (response.body.isSuccess == false) {
+          alert(response.body.message);
+
+          return;
+        }
+
+        this.botResponse(response.body.message);
+      });
     }
-
-    let msgText: string = this.msgInput.nativeElement.value;
-
-    this.msgInput.nativeElement.value = "";
-
-    if (msgText.trim() == '')
-    {
-      return;
-    }
-
-    this.chatbotService.sendMessage(msgText).subscribe((response) => {
-      console.log(response);
-    });
-
-    this.appendMessage(this.PERSON_NAME, this.PERSON_IMG, "right", msgText);
-
-    this.botResponse();
 
   }
 
@@ -85,12 +102,13 @@ export class ChatbotComponent implements OnInit {
     this.msgChat.nativeElement.scrollTop += 500;
   }
 
-  botResponse(): void {
+  botResponse(message: string): void {
     let r: number = this.random(0, this.BOT_MSGS.length - 1);
-    let msgText: string = this.BOT_MSGS[r];
-    let delay: number = msgText.split(" ").length * 100;
+    let msgText: string = message;
+    let delay: number = 2000;
     setTimeout(() => {
       this.appendMessage(this.BOT_NAME, this.BOT_IMG, "left", msgText);
+      this.isButtonDisabled = false;
     }, delay);
   }
 

@@ -19,7 +19,7 @@
              <div class="MessageImage" style="background-image: url()"></div>
              <div class="MessageBubble">
                <div class="MessageInfo">
-                 <div class="MessageInfoName">Thanh</div>
+                 <div class="MessageInfoName">BOT</div>
                  <div class="MessageInfoTime"></div>
                </div>
                <div class="MessageText">
@@ -28,9 +28,9 @@
              </div>
            </div>
          </div>
-         <form class="ChatboxInputArea">
-           <input #ChatboxInput type="text" class="ChatboxInput" placeholder="Enter your message...">
-           <button type="button" class="ChatboxSendButton" (click)="onSubmit()">Send</button>
+         <form [formGroup]="chatboxForm" class="ChatboxInputArea">
+           <input #ChatboxInput formControlName="chatbox" (keydown.enter)="onSubmit()" type="text" class="ChatboxInput" placeholder="Enter your message...">
+           <button (click)="onSubmit()" type="button" class="ChatboxSendButton">Send</button>
          </form>
        </div>
       </div>

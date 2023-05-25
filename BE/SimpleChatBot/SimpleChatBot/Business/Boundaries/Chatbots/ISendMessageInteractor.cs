@@ -20,14 +20,13 @@ namespace SimpleChatBot.Business.Boundaries.Chatbots
         {
             public string Message { get; set;}
             public bool IsJWTValid { get; set; }
+            public bool IsSuccess { get; set; }
 
-            public NotificationDto Notification { get; set; }
-
-            public Response(string message, bool isJWTValid, NotificationDto notification)
+            public Response(string message, bool isJWTValid, bool isSuccess)
             {
                 Message = message;
                 IsJWTValid = isJWTValid;
-                Notification = notification;
+                IsSuccess = isSuccess;
             }
         }
 
